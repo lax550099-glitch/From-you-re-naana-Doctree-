@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forever Yours 🤍</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#120022,#000);
+  color:white;
+  overflow:hidden;
+  text-align:center;
+}
+
+.screen{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  transition:opacity 1s;
+}
+
+.hidden{opacity:0;pointer-events:none;}
+
+.introImage{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 25px white;
+  margin-bottom:20px;
+}
+
+button{
+  padding:15px 35px;
+  font-size:22px;
+  border:none;
+  border-radius:40px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  box-shadow:0 0 15px white;
+}
+
+.box{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:22px;
+  max-width:750px;
+  max-height:70vh;
+  overflow-y:auto;
+  backdrop-filter:blur(6px);
+}
+
+/* ✨ Text animation */
+.line{
+  opacity:0;
+  transform:translateY(10px);
+  animation:reveal 1s forwards;
+}
+
+@keyframes reveal{
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ⭐ Stars */
+.star{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0.5;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+  from{opacity:0.2;}
+  to{opacity:1;}
+}
+
+/* 💍 Proposal popup */
+#proposal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:10;
+}
+
+#proposal h1{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+/* 💐 Bouquet */
+#bouquet{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:20;
+}
+
+#bouquet img{
+  width:280px;
+  animation:pop 1.5s ease-out;
+}
+
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.kiss{
+  font-size:50px;
+  margin-top:15px;
+  animation:float 2s infinite;
+}
+
+@keyframes float{
+  50%{transform:translateY(-10px);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+<div class="screen" id="intro">
+  <img src="kruthik.jpg" class="introImage">
+  <h1>For You 🤍</h1>
+  <button onclick="start()">YES</button>
+</div>
+
+<!-- MAIN -->
+<div class="screen hidden" id="main">
+  <div class="box" id="box">
+
+    <div class="line">Hmmmmm… do you remember mana video call? 🥺</div><br>
+    <div class="line">Nenu nee meedha kopam ga unna appudu,</div>
+    <div class="line">nuvvu asking me <b>sorry</b>…</div><br>
+
+    <div class="line"><b>Aa sorry entha cute ga undho telusa…</b></div>
+    <div class="line"><b>aa kshanam lo malli ninnu premistunna ani anipinchindhi 🥹</b></div><br>
+
+    <div class="line">Naaku nuvvu kaavaaliiiiiiiiiiiii 😭🫂</div>
+    <div class="line">Life without you imagine cheyyalekapothunna 🥺</div><br>
+
+    <div class="line">Don’t leave me…</div>
+    <div class="line">Naatho maatlaadu… naatho time spend cheyyi 🫂</div><br>
+
+    <div class="line"><b>Nuvvu naa husband 🤍</b></div>
+    <div class="line"><b>Forever yours — Naana</b></div>
+
+  </div>
+</div>
+
+<!-- 💍 Proposal -->
+<div id="proposal" class="screen">
+  <h1>Will you be mine forever? 🤍</h1>
+  <button onclick="showBouquet()">YES 💍</button>
+</div>
+
+<!-- 💐 Bouquet -->
+<div id="bouquet" class="screen">
+  <img src="https://i.imgur.com/3ZQ3ZQ3.png" alt="Bouquet">
+  <div class="kiss">💋💋💋</div>
+  <h2>I love you so much 🫂🤍</h2>
+</div>
+
+<!-- 🔊 Typing sound -->
+<audio id="typeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-keyboard-typing-1386.mp3"></audio>
+
+<script>
+function start(){
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("main").classList.remove("hidden");
+
+  const lines=document.querySelectorAll(".line");
+  const sound=document.getElementById("typeSound");
+
+  lines.forEach((line,i)=>{
+    line.style.animationDelay=(i*1.2)+"s";
+    setTimeout(()=>sound.play(),i*1200);
+  });
+
+  // 🐢 slower scroll
+  let box=document.getElementById("box");
+  let scroll=setInterval(()=>box.scrollTop+=0.5,80);
+
+  setTimeout(()=>{
+    clearInterval(scroll);
+    document.getElementById("proposal").style.display="flex";
+  },26000);
+}
+
+function showBouquet(){
+  document.getElementById("proposal").style.display="none";
+  document.getElementById("bouquet").style.display="flex";
+}
+
+/* ⭐ stars */
+for(let i=0;i<130;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"vh";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(s);
+}
+</script>
+
+</body>
+</html>
